@@ -1,16 +1,20 @@
-# yes24_highlight_exporter
+# Yes24 메모 추출기
 
-A new Flutter project.
+Yes24에서 구매한 책을 읽으면서 하이라이트한 내용이나 메모 내보내기
+기능을 공식적으로 지원하지 않아 개발하게 된 프로그램입니다.
 
-## Getting Started
+Yes24 ebook 윈도우 프로그램에서 사용하는 데이터베이스의 내용을 파싱하고
+Markdown 포맷으로 내보내는 작업을 지원하여 Obsidian이나 Notion 등 자신이
+사용하고 있는 메모 앱에서 활용할 수 있도록 할 수 있습니다.
 
-This project is a starting point for a Flutter application.
+## Todo
+- [] 메모 열람
+- [] 하이라이트 열람
+- [] Markdown 포맷 내보내기
+- [] Markdown 템플릿 지원
+- [] Obsidian 플러그인으로 만들기
+- [] 문서 작업
 
-A few resources to get you started if this is your first Flutter project:
+## 사용법
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Todo
