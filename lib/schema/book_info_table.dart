@@ -1,0 +1,65 @@
+import 'package:drift/drift.dart';
+
+@DataClassName('BookInfo')
+class BookInfoTable extends Table {
+  TextColumn get authorName => text().named('authorName')();
+  TextColumn get authorSort => text().named('authorSort')();
+  TextColumn get bookshelfId => text().named('bookshelfId')();
+  TextColumn get categoryNo => text().named('categoryNo')();
+  TextColumn get contentsType => text().named('contentsType')();
+  TextColumn get description => text().named('description')();
+  TextColumn get downloadDate => text().named('downloadDate')();
+  TextColumn get drmSellerSeq => text().named('drmSellerSeq')();
+  TextColumn get drmType => text().named('drmType')();
+  TextColumn get ebookCode => text().named('ebookCode')();
+  TextColumn get ebookId => text().named('ebookId')();
+  TextColumn get editAnnotationDate => text().named('editAnnotationDate')();
+  TextColumn get favorite => text().named('favorite')();
+  TextColumn get fileSize => text().named('fileSize')();
+  TextColumn get language => text().named('language')();
+  TextColumn get lastReadCFI => text().named('lastReadCFI')();
+  TextColumn get lastReadCFIOffset => text().named('lastReadCFIOffset')();
+  TextColumn get lastReadDate => text().named('lastReadDate')();
+  TextColumn get lastReadFileIndex => text().named('lastReadFileIndex')();
+  TextColumn get lastReadOffset => text().named('lastReadOffset')();
+  TextColumn get lastReadPercent => text().named('lastReadPercent')();
+  TextColumn get lastReadPosType => text().named('lastReadPosType')();
+  TextColumn get lastReadSeq => text().named('lastReadSeq')();
+  TextColumn get lastReadUpdateDate => text().named('lastReadUpdateDate')();
+  TextColumn get lastReadXPath => text().named('lastReadXPath')();
+  TextColumn get lastUpdateDate => text().named('lastUpdateDate')();
+  TextColumn get lockPW => text().named('lockPW')();
+  TextColumn get orderDate => text().named('orderDate')();
+  TextColumn get orderDetailSeq => text().named('orderDetailSeq')();
+  TextColumn get orderSeq => text().named('orderSeq')();
+  TextColumn get parentCode => text().named('parentCode')();
+  TextColumn get productCode => text().named('productCode')();
+  TextColumn get productType => text().named('productType')();
+  TextColumn get publishingName => text().named('publishingName')();
+  TextColumn get rating => text().named('rating')();
+  TextColumn get readDirection => text().named('readDirection')();
+  TextColumn get rentEndDate => text().named('rentEndDate')();
+  TextColumn get rentPeriod => text().named('rentPeriod')();
+  TextColumn get rentStartDate => text().named('rentStartDate')();
+  TextColumn get saleType => text().named('saleType')();
+  TextColumn get savePath => text().named('savePath')();
+  TextColumn get sellerOrderCd => text().named('sellerOrderCd')();
+  TextColumn get seq => text().named('seq')();
+  TextColumn get serialNumber => text().named('serialNumber')();
+  TextColumn get seriesCode => text().named('seriesCode')();
+  TextColumn get statusCd => text().named('statusCd')();
+  TextColumn get storeId => text().named('storeId')();
+  TextColumn get thumbnailPath => text().named('thumbnailPath')();
+  TextColumn get thumbnailUrl => text().named('thumbnailUrl')();
+  TextColumn get title => text().named('title')();
+  TextColumn get titleSort => text().named('titleSort')();
+  TextColumn get uniqueId => text().named('uniqueId')();
+  TextColumn get userId => text().named('userId')();
+  TextColumn get userNo => text().named('userNo')();
+  TextColumn get readDone => text().named('readDone')();
+  TextColumn get pageMode => text().named('pageMode')();
+  TextColumn get fitmode => text().named('fitmode')();
+  TextColumn get theme => text().named('theme')();
+  IntColumn get managedId =>
+      integer().named('managedId').customConstraint('PRIMARY KEY')();
+}
