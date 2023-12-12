@@ -18,3 +18,7 @@ Markdown 포맷으로 내보내는 작업을 지원하여 Obsidian이나 Notion 
 ## 사용법
 
 - Todo
+
+## 참고 문서
+- https://github.com/rodydavis/clean_architecture_todo_app/tree/main
+- https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/
