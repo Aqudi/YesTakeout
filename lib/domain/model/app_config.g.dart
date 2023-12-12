@@ -8,7 +8,7 @@ part of 'app_config.dart';
 
 _$AppConfigImpl _$$AppConfigImplFromJson(Map<String, dynamic> json) =>
     _$AppConfigImpl(
-      databasePath: json['databasePath'] as String,
+      databasePath: json['databasePath'] as String? ?? 'database.db',
     );
 
 Map<String, dynamic> _$$AppConfigImplToJson(_$AppConfigImpl instance) =>

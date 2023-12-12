@@ -7,12 +7,12 @@ part of 'app_config_repository_impl.dart';
 // **************************************************************************
 
 String _$appConfigRepositoryImplHash() =>
-    r'ee2b2b4d6629e949f0c3a3b6214c1811ffd3aac0';
+    r'3ca7c96716d8adfe19aa1b1fb95bfa00e10c5f0c';
 
 /// See also [AppConfigRepositoryImpl].
 @ProviderFor(AppConfigRepositoryImpl)
-final appConfigRepositoryImplProvider = AutoDisposeStreamNotifierProvider<
-    AppConfigRepositoryImpl, AppConfig>.internal(
+final appConfigRepositoryImplProvider =
+    AutoDisposeNotifierProvider<AppConfigRepositoryImpl, AppConfig>.internal(
   AppConfigRepositoryImpl.new,
   name: r'appConfigRepositoryImplProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final appConfigRepositoryImplProvider = AutoDisposeStreamNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$AppConfigRepositoryImpl = AutoDisposeStreamNotifier<AppConfig>;
+typedef _$AppConfigRepositoryImpl = AutoDisposeNotifier<AppConfig>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -15,17 +15,18 @@ class AppConfigRepositoryImpl extends _$AppConfigRepositoryImpl
   static const String key = 'app_config';
 
   @override
-  Stream<AppConfig> build() {
-    return getAppConfig().asStream();
+  AppConfig build() {
+    return getAppConfig();
   }
 
   @override
-  Future<AppConfig> getAppConfig() async {
+  AppConfig getAppConfig() {
     try {
-      final appConfig = AppConfig.fromJson(
-        json.decode(_sharedPreferences.getString(key) ?? ''),
-      );
-      return appConfig;
+      final appConfigJson = _sharedPreferences.getString(key);
+      if (appConfigJson != null) {
+        return AppConfig.fromJson(json.decode(appConfigJson));
+      }
+      return const AppConfig();
     } catch (e) {
       rethrow;
     }
@@ -35,6 +36,7 @@ class AppConfigRepositoryImpl extends _$AppConfigRepositoryImpl
   Future<void> saveAppConfig(AppConfig appConfig) async {
     try {
       await _sharedPreferences.setString(key, json.encode(appConfig));
+      state = getAppConfig();
     } catch (e) {
       rethrow;
     }

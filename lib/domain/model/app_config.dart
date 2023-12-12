@@ -6,7 +6,7 @@ part 'app_config.g.dart';
 @freezed
 class AppConfig with _$AppConfig {
   const factory AppConfig({
-    required String databasePath,
+    @Default('database.db') String databasePath,
   }) = _AppConfig;
 
   factory AppConfig.fromJson(Map<String, Object?> json) =>

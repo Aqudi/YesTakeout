@@ -96,12 +96,13 @@ class __$$AppConfigImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AppConfigImpl implements _AppConfig {
-  const _$AppConfigImpl({required this.databasePath});
+  const _$AppConfigImpl({this.databasePath = 'database.db'});
 
   factory _$AppConfigImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppConfigImplFromJson(json);
 
   @override
+  @JsonKey()
   final String databasePath;
 
   @override
@@ -137,8 +138,7 @@ class _$AppConfigImpl implements _AppConfig {
 }
 
 abstract class _AppConfig implements AppConfig {
-  const factory _AppConfig({required final String databasePath}) =
-      _$AppConfigImpl;
+  const factory _AppConfig({final String databasePath}) = _$AppConfigImpl;
 
   factory _AppConfig.fromJson(Map<String, dynamic> json) =
       _$AppConfigImpl.fromJson;
