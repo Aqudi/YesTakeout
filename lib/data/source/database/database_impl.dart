@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:yes24_highlight_exporter/data/repository/app_config_repository_impl.dart';
+import 'package:yes24_highlight_exporter/utils/logger.dart';
 
 import 'connection/connection.dart' as impl;
 import 'database.dart';
@@ -8,15 +10,16 @@ import './schema/book_info_table.dart';
 
 part 'database_impl.g.dart';
 
-typedef Val<T> = Value<T>;
-
-final databaseProvider = Provider<Database>(
-  (ref) => DatabaseImpl(
-    dbName: 'database.db',
+@riverpod
+Database database(DatabaseRef ref) {
+  final appConfig = ref.watch(appConfigRepositoryImplProvider);
+  ref.read(loggerProvider).d('Opening database ${appConfig.databasePath}');
+  return DatabaseImpl(
+    dbName: appConfig.databasePath,
     inMemory: false,
     logStatements: false,
-  ),
-);
+  );
+}
 
 @DriftDatabase(tables: [BookAnnotationTable, BookInfoTable])
 class DatabaseImpl extends _$DatabaseImpl implements Database {
@@ -39,20 +42,61 @@ class DatabaseImpl extends _$DatabaseImpl implements Database {
   @override
   int get schemaVersion => 1;
 
-  @override
-  Future<List<BookAnnotation>> getBookAnnotations() {
-    return bookAnnotationTable.all().get();
-  }
+  Selectable<BookAnnotation> _getBookAnnotations() =>
+      bookAnnotationTable.select()
+        ..where((tbl) => tbl.annotationType.isIn(['2', '3']));
+  Selectable<BookInfo> _getBookInfos() => bookInfoTable.all();
+  Selectable<BookAnnotation> _searchAnnotations(String bookId) =>
+      bookAnnotationTable.select()..where((tbl) => tbl.ebookId.equals(bookId));
 
   @override
-  Future<List<BookInfo>> getBookInfos() {
-    return bookInfoTable.all().get();
-  }
+  Future<List<BookAnnotation>> getBookAnnotations() =>
+      _getBookAnnotations().get();
 
   @override
-  Future<List<BookAnnotation>> searchAnnotations(String bookId) {
-    return (bookAnnotationTable.select()
-          ..where((tbl) => tbl.ebookId.equals(bookId)))
+  Future<List<BookInfo>> getBookInfos() => _getBookInfos().get();
+
+  @override
+  Future<List<BookAnnotation>> searchAnnotations(String ebookId) =>
+      _searchAnnotations(ebookId).get();
+
+  @override
+  Stream<List<BookAnnotation>> watchBookAnnotations() =>
+      _getBookAnnotations().watch();
+
+  @override
+  Stream<List<BookInfo>> watchBookInfos() => _getBookInfos().watch();
+
+  @override
+  Future<List<BookAnnotationCount>> getBookAnnotationCount() async {
+    final bookAnnotationCount = bookAnnotationTable.ebookId.count();
+
+    final query = select(bookInfoTable).join(
+      [
+        innerJoin(
+          bookAnnotationTable,
+          bookAnnotationTable.ebookId
+              .isInExp([bookInfoTable.ebookId, bookInfoTable.uniqueId]),
+        ),
+      ],
+    )
+      ..addColumns([bookAnnotationCount])
+      ..groupBy(
+        [bookAnnotationTable.ebookId, bookAnnotationTable.annotationType],
+      );
+
+    final result = await query
+        .map(
+          (row) => (
+            bookId: row.readTableOrNull(bookAnnotationTable)?.ebookId,
+            title: row.readTableOrNull(bookInfoTable)?.title,
+            annotationType:
+                row.readTableOrNull(bookAnnotationTable)?.annotationType,
+            annotationCount: row.read(bookAnnotationCount),
+          ),
+        )
         .get();
+
+    return result;
   }
 }

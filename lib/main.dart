@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yes24_highlight_exporter/data/source/shared_preferences/shared_preferences.dart';
-import 'package:yes24_highlight_exporter/presentation/view/home_view.dart';
+import 'package:yes24_highlight_exporter/presentation/view/home/home_view.dart';
 
 void main() async {
   // ensure widget bindings
