@@ -21,11 +21,20 @@ class BookInfoRepositoryImpl extends _$BookInfoRepositoryImpl
 
   @override
   Future<List<BookInfo>> getAllBookInfos() async {
-    final bookInfos = await _database.getBookInfos();
-    return BookInfoMapper.transformToModelList(bookInfos);
-  }
+    final bookInfos =
+        BookInfoMapper.transformToModelList(await _database.getBookInfos());
+    final bookAnnotationCounts = await _database.getBookAnnotationCount();
 
-  Future<List<BookAnnotationCount>> getAnnotationCount() async {
-    return _database.getBookAnnotationCount();
+    final annotationCountMap = {
+      for (var count in bookAnnotationCounts)
+        count.bookId: count.annotationCount,
+    };
+
+    // Create a new list of BookInfo with annotation counts
+    return bookInfos.map((bookInfo) {
+      final annotationCount = (annotationCountMap[bookInfo.uniqueId] ?? 0) +
+          (annotationCountMap[bookInfo.ebookId] ?? 0);
+      return bookInfo.copyWith(bookAnnotationCounts: annotationCount);
+    }).toList();
   }
 }

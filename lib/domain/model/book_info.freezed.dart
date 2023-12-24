@@ -79,6 +79,7 @@ mixin _$BookInfo {
   String? get fitmode => throw _privateConstructorUsedError;
   String? get theme => throw _privateConstructorUsedError;
   int? get managedId => throw _privateConstructorUsedError;
+  int? get bookAnnotationCounts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -150,7 +151,8 @@ abstract class $BookInfoCopyWith<$Res> {
       String? pageMode,
       String? fitmode,
       String? theme,
-      int? managedId});
+      int? managedId,
+      int? bookAnnotationCounts});
 }
 
 /// @nodoc
@@ -225,6 +227,7 @@ class _$BookInfoCopyWithImpl<$Res, $Val extends BookInfo>
     Object? fitmode = freezed,
     Object? theme = freezed,
     Object? managedId = freezed,
+    Object? bookAnnotationCounts = freezed,
   }) {
     return _then(_value.copyWith(
       authorName: freezed == authorName
@@ -463,6 +466,10 @@ class _$BookInfoCopyWithImpl<$Res, $Val extends BookInfo>
           ? _value.managedId
           : managedId // ignore: cast_nullable_to_non_nullable
               as int?,
+      bookAnnotationCounts: freezed == bookAnnotationCounts
+          ? _value.bookAnnotationCounts
+          : bookAnnotationCounts // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -534,7 +541,8 @@ abstract class _$$BookInfoImplCopyWith<$Res>
       String? pageMode,
       String? fitmode,
       String? theme,
-      int? managedId});
+      int? managedId,
+      int? bookAnnotationCounts});
 }
 
 /// @nodoc
@@ -607,6 +615,7 @@ class __$$BookInfoImplCopyWithImpl<$Res>
     Object? fitmode = freezed,
     Object? theme = freezed,
     Object? managedId = freezed,
+    Object? bookAnnotationCounts = freezed,
   }) {
     return _then(_$BookInfoImpl(
       authorName: freezed == authorName
@@ -845,6 +854,10 @@ class __$$BookInfoImplCopyWithImpl<$Res>
           ? _value.managedId
           : managedId // ignore: cast_nullable_to_non_nullable
               as int?,
+      bookAnnotationCounts: freezed == bookAnnotationCounts
+          ? _value.bookAnnotationCounts
+          : bookAnnotationCounts // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -911,7 +924,8 @@ class _$BookInfoImpl implements _BookInfo {
       this.pageMode,
       this.fitmode,
       this.theme,
-      this.managedId});
+      this.managedId,
+      this.bookAnnotationCounts});
 
   factory _$BookInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookInfoImplFromJson(json);
@@ -1034,10 +1048,12 @@ class _$BookInfoImpl implements _BookInfo {
   final String? theme;
   @override
   final int? managedId;
+  @override
+  final int? bookAnnotationCounts;
 
   @override
   String toString() {
-    return 'BookInfo(authorName: $authorName, authorSort: $authorSort, bookshelfId: $bookshelfId, categoryNo: $categoryNo, contentsType: $contentsType, description: $description, downloadDate: $downloadDate, drmSellerSeq: $drmSellerSeq, drmType: $drmType, ebookCode: $ebookCode, ebookId: $ebookId, editAnnotationDate: $editAnnotationDate, favorite: $favorite, fileSize: $fileSize, language: $language, lastReadCFI: $lastReadCFI, lastReadCFIOffset: $lastReadCFIOffset, lastReadDate: $lastReadDate, lastReadFileIndex: $lastReadFileIndex, lastReadOffset: $lastReadOffset, lastReadPercent: $lastReadPercent, lastReadPosType: $lastReadPosType, lastReadSeq: $lastReadSeq, lastReadUpdateDate: $lastReadUpdateDate, lastReadXPath: $lastReadXPath, lastUpdateDate: $lastUpdateDate, lockPW: $lockPW, orderDate: $orderDate, orderDetailSeq: $orderDetailSeq, orderSeq: $orderSeq, parentCode: $parentCode, productCode: $productCode, productType: $productType, publishingName: $publishingName, rating: $rating, readDirection: $readDirection, rentEndDate: $rentEndDate, rentPeriod: $rentPeriod, rentStartDate: $rentStartDate, saleType: $saleType, savePath: $savePath, sellerOrderCd: $sellerOrderCd, seq: $seq, serialNumber: $serialNumber, seriesCode: $seriesCode, statusCd: $statusCd, storeId: $storeId, thumbnailPath: $thumbnailPath, thumbnailUrl: $thumbnailUrl, title: $title, titleSort: $titleSort, uniqueId: $uniqueId, userId: $userId, userNo: $userNo, readDone: $readDone, pageMode: $pageMode, fitmode: $fitmode, theme: $theme, managedId: $managedId)';
+    return 'BookInfo(authorName: $authorName, authorSort: $authorSort, bookshelfId: $bookshelfId, categoryNo: $categoryNo, contentsType: $contentsType, description: $description, downloadDate: $downloadDate, drmSellerSeq: $drmSellerSeq, drmType: $drmType, ebookCode: $ebookCode, ebookId: $ebookId, editAnnotationDate: $editAnnotationDate, favorite: $favorite, fileSize: $fileSize, language: $language, lastReadCFI: $lastReadCFI, lastReadCFIOffset: $lastReadCFIOffset, lastReadDate: $lastReadDate, lastReadFileIndex: $lastReadFileIndex, lastReadOffset: $lastReadOffset, lastReadPercent: $lastReadPercent, lastReadPosType: $lastReadPosType, lastReadSeq: $lastReadSeq, lastReadUpdateDate: $lastReadUpdateDate, lastReadXPath: $lastReadXPath, lastUpdateDate: $lastUpdateDate, lockPW: $lockPW, orderDate: $orderDate, orderDetailSeq: $orderDetailSeq, orderSeq: $orderSeq, parentCode: $parentCode, productCode: $productCode, productType: $productType, publishingName: $publishingName, rating: $rating, readDirection: $readDirection, rentEndDate: $rentEndDate, rentPeriod: $rentPeriod, rentStartDate: $rentStartDate, saleType: $saleType, savePath: $savePath, sellerOrderCd: $sellerOrderCd, seq: $seq, serialNumber: $serialNumber, seriesCode: $seriesCode, statusCd: $statusCd, storeId: $storeId, thumbnailPath: $thumbnailPath, thumbnailUrl: $thumbnailUrl, title: $title, titleSort: $titleSort, uniqueId: $uniqueId, userId: $userId, userNo: $userNo, readDone: $readDone, pageMode: $pageMode, fitmode: $fitmode, theme: $theme, managedId: $managedId, bookAnnotationCounts: $bookAnnotationCounts)';
   }
 
   @override
@@ -1146,7 +1162,8 @@ class _$BookInfoImpl implements _BookInfo {
             (identical(other.pageMode, pageMode) || other.pageMode == pageMode) &&
             (identical(other.fitmode, fitmode) || other.fitmode == fitmode) &&
             (identical(other.theme, theme) || other.theme == theme) &&
-            (identical(other.managedId, managedId) || other.managedId == managedId));
+            (identical(other.managedId, managedId) || other.managedId == managedId) &&
+            (identical(other.bookAnnotationCounts, bookAnnotationCounts) || other.bookAnnotationCounts == bookAnnotationCounts));
   }
 
   @JsonKey(ignore: true)
@@ -1211,7 +1228,8 @@ class _$BookInfoImpl implements _BookInfo {
         pageMode,
         fitmode,
         theme,
-        managedId
+        managedId,
+        bookAnnotationCounts
       ]);
 
   @JsonKey(ignore: true)
@@ -1288,7 +1306,8 @@ abstract class _BookInfo implements BookInfo {
       final String? pageMode,
       final String? fitmode,
       final String? theme,
-      final int? managedId}) = _$BookInfoImpl;
+      final int? managedId,
+      final int? bookAnnotationCounts}) = _$BookInfoImpl;
 
   factory _BookInfo.fromJson(Map<String, dynamic> json) =
       _$BookInfoImpl.fromJson;
@@ -1411,6 +1430,8 @@ abstract class _BookInfo implements BookInfo {
   String? get theme;
   @override
   int? get managedId;
+  @override
+  int? get bookAnnotationCounts;
   @override
   @JsonKey(ignore: true)
   _$$BookInfoImplCopyWith<_$BookInfoImpl> get copyWith =>

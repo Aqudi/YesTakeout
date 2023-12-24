@@ -65,6 +65,7 @@ class BookInfo with _$BookInfo {
     String? fitmode,
     String? theme,
     int? managedId,
+    int? bookAnnotationCounts,
   }) = _BookInfo;
 
   factory BookInfo.fromJson(Map<String, dynamic> json) =>

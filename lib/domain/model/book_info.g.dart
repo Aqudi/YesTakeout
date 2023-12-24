@@ -67,6 +67,7 @@ _$BookInfoImpl _$$BookInfoImplFromJson(Map<String, dynamic> json) =>
       fitmode: json['fitmode'] as String?,
       theme: json['theme'] as String?,
       managedId: json['managedId'] as int?,
+      bookAnnotationCounts: json['bookAnnotationCounts'] as int?,
     );
 
 Map<String, dynamic> _$$BookInfoImplToJson(_$BookInfoImpl instance) =>
@@ -130,4 +131,5 @@ Map<String, dynamic> _$$BookInfoImplToJson(_$BookInfoImpl instance) =>
       'fitmode': instance.fitmode,
       'theme': instance.theme,
       'managedId': instance.managedId,
+      'bookAnnotationCounts': instance.bookAnnotationCounts,
     };

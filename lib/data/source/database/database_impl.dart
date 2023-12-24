@@ -68,7 +68,8 @@ class DatabaseImpl extends _$DatabaseImpl implements Database {
   Stream<List<BookInfo>> watchBookInfos() => _getBookInfos().watch();
 
   @override
-  Future<List<BookAnnotationCount>> getBookAnnotationCount() async {
+  Future<List<({String? bookId, int? annotationCount})>>
+      getBookAnnotationCount() async {
     final bookAnnotationCount = bookAnnotationTable.ebookId.count();
 
     final query = select(bookInfoTable).join(
@@ -89,9 +90,6 @@ class DatabaseImpl extends _$DatabaseImpl implements Database {
         .map(
           (row) => (
             bookId: row.readTableOrNull(bookAnnotationTable)?.ebookId,
-            title: row.readTableOrNull(bookInfoTable)?.title,
-            annotationType:
-                row.readTableOrNull(bookAnnotationTable)?.annotationType,
             annotationCount: row.read(bookAnnotationCount),
           ),
         )
