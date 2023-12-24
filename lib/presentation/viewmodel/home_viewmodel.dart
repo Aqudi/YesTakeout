@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:yes24_highlight_exporter/data/source/database/database.dart';
 
 import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 
@@ -23,30 +22,19 @@ class HomeViewModel extends _$HomeViewModel {
   Logger get _logger => ref.read(loggerProvider);
 
   @override
-  Future<List<BookInfoWithAnnotationCount>> build() async {
-    final bookInfos =
-        ref.watch(bookInfoRepositoryImplProvider).valueOrNull ?? [];
-    final bookAnnotationCounts = (await ref
-            .watch(bookInfoRepositoryImplProvider.notifier)
-            .getAnnotationCount())
-        .asMap()
-        .map(
-          (key, value) => MapEntry((value.bookId, value.annotationType), value),
-        );
+  Future<List<BookInfo>> build() async {
+    return [];
+  }
 
-    return bookInfos.map((bookInfo) {
-      var count = 0;
-      for (var i = 0; i < 10; i++) {
-        count +=
-            bookAnnotationCounts[(bookInfo.ebookId, '$i')]?.annotationCount ??
-                0;
-      }
+  Future<void> getBookInfos() async {
+    state = const AsyncValue.loading();
 
-      return (
-        bookInfo: bookInfo,
-        bookAnnotationCount: count,
-      );
-    }).toList();
+    state = await AsyncValue.guard(() async {
+      final bookInfos = await ref
+          .watch(bookInfoRepositoryImplProvider.notifier)
+          .getAllBookInfos();
+      return bookInfos;
+    });
   }
 
   Future<void> openDatabase() async {

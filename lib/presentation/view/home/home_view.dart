@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yes24_highlight_exporter/data/repository/app_config_repository_impl.dart';
+import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 
 import 'package:yes24_highlight_exporter/presentation/viewmodel/home_viewmodel.dart';
 
@@ -12,77 +14,72 @@ class HomeView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bookInfos = ref.watch(homeViewModelProvider);
-    print(bookInfos.valueOrNull);
+
+    useEffect(
+      () {
+        Future.microtask(
+          () => ref.read(homeViewModelProvider.notifier).getBookInfos(),
+        );
+        return null;
+      },
+      [],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Book Annotations'),
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 1020,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          ref
-                              .watch(appConfigRepositoryImplProvider)
-                              .databasePath,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          ref
-                              .read(homeViewModelProvider.notifier)
-                              .openDatabase();
-                        },
-                        child: const Text('Open database'),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => ref.refresh(homeViewModelProvider.notifier),
-                  icon: const Icon(Icons.refresh),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: bookInfos.value?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final counts = bookInfos.valueOrNull?[index];
-                    final bookInfo = counts?.bookInfo;
-                    final annotations = counts?.bookAnnotationCount;
-
-                    return ListTile(
-                      title: Text(
-                        '${bookInfo?.title}',
-                        maxLines: 2,
+          Column(
+            children: [
+              SizedBox(
+                width: 1020,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        ref.watch(appConfigRepositoryImplProvider).databasePath,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      subtitle: Text(
-                        '${bookInfo?.authorName ?? bookInfo?.authorSort}',
-                      ),
-                      trailing: Text(
-                        '주석:\t$annotations',
-                        textAlign: TextAlign.right, // Right-align text
-                      ),
-                      titleTextStyle: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(homeViewModelProvider.notifier).openDatabase();
+                      },
+                      child: const Text('Open database'),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () =>
+                    ref.read(homeViewModelProvider.notifier).getBookInfos(),
+                icon: const Icon(Icons.refresh),
+              ),
+              Expanded(
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(8.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                    childAspectRatio: 63 / 100,
+                  ),
+                  itemCount: bookInfos.valueOrNull?.length ?? 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    final bookInfo = bookInfos.valueOrNull?[index];
+                    return BookCard(
+                      bookInfo: bookInfo,
                     );
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           if (bookInfos.isLoading)
             BackdropFilter(
@@ -90,6 +87,55 @@ class HomeView extends HookConsumerWidget {
               child: const CircularProgressIndicator(),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class BookCard extends StatelessWidget {
+  const BookCard({
+    super.key,
+    required this.bookInfo,
+  });
+
+  final BookInfo? bookInfo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5,
+      color: Colors.white,
+      surfaceTintColor: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            if (bookInfo?.thumbnailUrl != null)
+              Image.network(
+                bookInfo!.thumbnailUrl!,
+                fit: BoxFit.contain,
+              ),
+            const SizedBox(height: 10),
+            Column(
+              children: [
+                Text(
+                  '${bookInfo?.title}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  '${bookInfo?.authorName ?? bookInfo?.authorSort}',
+                ),
+                Text(
+                  '주석:\t${bookInfo?.bookAnnotationCounts ?? 0}',
+                  textAlign: TextAlign.right, // Right-align text
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
