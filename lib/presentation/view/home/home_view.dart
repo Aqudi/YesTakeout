@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -102,6 +103,8 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final thumbnailUrl = bookInfo?.thumbnailUrl;
+
     return Card(
       elevation: 5,
       color: Colors.white,
@@ -112,9 +115,14 @@ class BookCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            if (bookInfo?.thumbnailUrl != null)
-              Image.network(
-                bookInfo!.thumbnailUrl!,
+            if (thumbnailUrl != null)
+              CachedNetworkImage(
+                progressIndicatorBuilder: (context, url, progress) => Center(
+                  child: CircularProgressIndicator(
+                    value: progress.progress,
+                  ),
+                ),
+                imageUrl: thumbnailUrl,
                 fit: BoxFit.contain,
               ),
             const SizedBox(height: 10),
