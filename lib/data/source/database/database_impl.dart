@@ -14,11 +14,18 @@ part 'database_impl.g.dart';
 Database database(DatabaseRef ref) {
   final appConfig = ref.watch(appConfigRepositoryImplProvider);
   ref.read(loggerProvider).d('Opening database ${appConfig.databasePath}');
-  return DatabaseImpl(
+
+  final database = DatabaseImpl(
     dbName: appConfig.databasePath,
     inMemory: false,
     logStatements: false,
   );
+
+  ref.onDispose(() {
+    database.close();
+  });
+
+  return database;
 }
 
 @DriftDatabase(tables: [BookAnnotationTable, BookInfoTable])
