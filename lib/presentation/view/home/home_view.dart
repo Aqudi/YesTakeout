@@ -108,14 +108,12 @@ class BookCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (bookInfo == null) return;
+        final ebookId = bookInfo?.ebookId;
 
-        GoRouter.of(context).pushNamed(
-          '/book',
-          queryParameters: {
-            'eBookId': bookInfo?.ebookId,
-          },
-        );
+        // TODO: 에러 띄우기
+        if (ebookId == null) return;
+
+        context.go('/book/$ebookId');
       },
       child: Card(
         elevation: 5,

@@ -11,14 +11,16 @@ final GoRouter router = GoRouter(
       path: '/',
       name: 'home',
       builder: (BuildContext context, GoRouterState state) => const HomeView(),
-    ),
-    GoRoute(
-      path: '/book/:eBookId',
-      name: 'bookDetail',
-      builder: (BuildContext context, GoRouterState state) {
-        final String? eBookId = state.pathParameters['eBookId'];
-        return BookDetailView(eBookId: eBookId);
-      },
+      routes: [
+        GoRoute(
+          path: 'book/:eBookId',
+          name: 'bookDetail',
+          builder: (BuildContext context, GoRouterState state) {
+            final String? eBookId = state.pathParameters['eBookId'];
+            return BookDetailView(eBookId: eBookId);
+          },
+        ),
+      ],
     ),
   ],
 );
