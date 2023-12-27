@@ -12,11 +12,6 @@ import 'package:yes24_highlight_exporter/utils/logger.dart';
 
 part 'home_viewmodel.g.dart';
 
-typedef BookInfoWithAnnotationCount = ({
-  BookInfo bookInfo,
-  int? bookAnnotationCount,
-});
-
 @riverpod
 class HomeViewModel extends _$HomeViewModel {
   Logger get _logger => ref.read(loggerProvider);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yes24_highlight_exporter/data/source/shared_preferences/shared_preferences.dart';
-import 'package:yes24_highlight_exporter/presentation/view/home/home_view.dart';
+import 'package:yes24_highlight_exporter/presentation/router/app_router.dart';
 
 void main() async {
   // ensure widget bindings
@@ -26,13 +26,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeView(),
+      routerDelegate: router.routerDelegate,
     );
   }
 }

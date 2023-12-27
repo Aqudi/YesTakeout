@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_viewmodel.dart';
+part of 'book_detail_viewmodel.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeViewModelHash() => r'eef0f8003696f8109f8b9cca30a648b04645291f';
+String _$bookDetailViewModelHash() =>
+    r'1d5373b5334972cafb4c8f8be17f9873aca57e9b';
 
-/// See also [HomeViewModel].
-@ProviderFor(HomeViewModel)
-final homeViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<HomeViewModel, List<BookInfo>>.internal(
-  HomeViewModel.new,
-  name: r'homeViewModelProvider',
+/// See also [BookDetailViewModel].
+@ProviderFor(BookDetailViewModel)
+final bookDetailViewModelProvider = AutoDisposeAsyncNotifierProvider<
+    BookDetailViewModel, List<BookAnnotation>>.internal(
+  BookDetailViewModel.new,
+  name: r'bookDetailViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$homeViewModelHash,
+      : _$bookDetailViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HomeViewModel = AutoDisposeAsyncNotifier<List<BookInfo>>;
+typedef _$BookDetailViewModel = AutoDisposeAsyncNotifier<List<BookAnnotation>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
