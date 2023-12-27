@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yes24_highlight_exporter/data/mapper/book_annotation_mapper.dart';
 
 import 'package:yes24_highlight_exporter/domain/model/book_annotation.dart';
+import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 
 import 'package:yes24_highlight_exporter/domain/repository/book_annotation_repository.dart';
 
@@ -31,9 +32,17 @@ class BookAnnotationRepositoryImpl extends _$BookAnnotationRepositoryImpl
   }
 
   @override
-  Future<List<BookAnnotation>> searchAnnotations(String query) {
-    return _database
-        .searchAnnotations(query)
-        .then(BookAnnotationMapper.transformToModelList);
+  Future<List<BookAnnotation>> searchAnnotations(BookInfo bookInfo) async {
+    final bookAnnotations = <BookAnnotation>[];
+    for (var bookId in [bookInfo.uniqueId, bookInfo.ebookId]) {
+      if (bookId != null) {
+        bookAnnotations.addAll(
+          await _database
+              .searchAnnotations(bookId)
+              .then(BookAnnotationMapper.transformToModelList),
+        );
+      }
+    }
+    return bookAnnotations;
   }
 }

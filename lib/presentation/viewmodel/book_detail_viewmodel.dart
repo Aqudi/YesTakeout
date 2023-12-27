@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yes24_highlight_exporter/data/repository/book_annotation_repository_impl.dart';
 import 'package:yes24_highlight_exporter/domain/model/book_annotation.dart';
+import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 
 import 'package:yes24_highlight_exporter/utils/logger.dart';
 
@@ -15,14 +16,16 @@ class BookDetailViewModel extends _$BookDetailViewModel {
     return [];
   }
 
-  Future<void> getBookAnnotations(String bookId) async {
-    _logger.d('Getting annotations for bookId: $bookId');
+  Future<void> getBookAnnotations(BookInfo bookInfo) async {
+    _logger.d(
+      'Getting annotations for bookId: ${bookInfo.ebookId}, ${bookInfo.uniqueId}',
+    );
     state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() async {
       final annotations = ref
           .watch(bookAnnotationRepositoryImplProvider.notifier)
-          .searchAnnotations(bookId);
+          .searchAnnotations(bookInfo);
       return annotations;
     });
   }

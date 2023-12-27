@@ -7,7 +7,7 @@ part of 'book_annotation_repository_impl.dart';
 // **************************************************************************
 
 String _$bookAnnotationRepositoryImplHash() =>
-    r'f311c729e7005b460836dea2fbd3a4cd0c2346df';
+    r'a0e10b45a7120d1cf5115d344903f5a32a7a5eb8';
 
 /// See also [BookAnnotationRepositoryImpl].
 @ProviderFor(BookAnnotationRepositoryImpl)
