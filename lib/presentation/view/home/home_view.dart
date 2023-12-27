@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yes24_highlight_exporter/data/repository/app_config_repository_impl.dart';
 import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
+import 'package:yes24_highlight_exporter/presentation/router/app_router.dart';
 
 import 'package:yes24_highlight_exporter/presentation/viewmodel/home_viewmodel.dart';
 
@@ -108,12 +109,12 @@ class BookCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        final ebookId = bookInfo?.ebookId;
-
         // TODO: 에러 띄우기
-        if (ebookId == null) return;
+        if (bookInfo == null) return;
 
-        context.go('/book/$ebookId');
+        BookDetailRoute(
+          $extra: bookInfo!,
+        ).go(context);
       },
       child: Card(
         elevation: 5,

@@ -1,24 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
+import 'package:yes24_highlight_exporter/presentation/viewmodel/book_detail_viewmodel.dart';
 
 class BookDetailView extends HookConsumerWidget {
-  final String? eBookId;
+  final BookInfo? bookInfo;
 
-  const BookDetailView({super.key, this.eBookId});
+  const BookDetailView({super.key, this.bookInfo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bookAnnotations = ref.watch(bookDetailViewModelProvider);
+
+    useEffect(
+      () {
+        final bookInfo = this.bookInfo;
+        if (bookInfo != null) {
+          Future.microtask(
+            () => ref
+                .read(bookDetailViewModelProvider.notifier)
+                .getBookAnnotations(bookInfo),
+          );
+        }
+        return null;
+      },
+      [bookInfo?.ebookId],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Book Annotations'),
       ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Item $index'),
-          );
-        },
+      body: Stack(
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: bookAnnotations.valueOrNull?.length ?? 0,
+            itemBuilder: (context, index) {
+              final bookAnnotation = bookAnnotations.valueOrNull?[index];
+              return ListTile(
+                title: Text('${bookAnnotation?.sentence}'),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
