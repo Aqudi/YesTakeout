@@ -9,6 +9,7 @@ import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 import 'package:yes24_highlight_exporter/presentation/router/app_router.dart';
 
 import 'package:yes24_highlight_exporter/presentation/viewmodel/home_viewmodel.dart';
+import '../../widgets/backdrop_filter_loading.dart';
 
 class HomeView extends HookConsumerWidget {
   const HomeView({super.key});
@@ -83,11 +84,7 @@ class HomeView extends HookConsumerWidget {
               ),
             ],
           ),
-          if (bookInfos.isLoading)
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: const CircularProgressIndicator(),
-            ),
+          if (bookInfos.isLoading) const BackdropFilterLoading(),
         ],
       ),
     );
