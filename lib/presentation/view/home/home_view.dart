@@ -66,8 +66,8 @@ class HomeView extends HookConsumerWidget {
                 child: GridView.builder(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(8.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.of(context).size.width ~/ 300,
                     crossAxisSpacing: 8.0,
                     mainAxisSpacing: 8.0,
                     childAspectRatio: 63 / 100,
