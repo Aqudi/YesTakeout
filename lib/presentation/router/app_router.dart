@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 
+import 'package:go_router/go_router.dart';
+
+import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 import '../view/book_detail/book_detail_view.dart';
 import '../view/home/home_view.dart';
 

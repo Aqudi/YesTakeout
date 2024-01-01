@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:yes24_highlight_exporter/utils/logger.dart';
 
 class BaseViewModel with ChangeNotifier {

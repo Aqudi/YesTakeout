@@ -43,6 +43,7 @@ dev_dependencies:
   freezed: ^2.4.5
   json_serializable: ^6.7.1
   go_router_builder: ^2.4.0
+  import_sorter: ^4.6.0
 
 flutter:
   uses-material-design: true
@@ -62,3 +63,7 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+import_sorter:
+  emojis: false
+  comments: false
