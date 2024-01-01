@@ -46,12 +46,15 @@ class HomeViewModel extends _$HomeViewModel {
         file = result?.files.first;
       }
 
-      final appConfig = ref.read(appConfigRepositoryImplProvider);
-      await ref.read(appConfigRepositoryImplProvider.notifier).saveAppConfig(
-            appConfig.copyWith(
-              databasePath: file?.path ?? '',
-            ),
-          );
+      _logger.d('Selected file path: ${file?.path}');
+      if (file != null) {
+        final appConfig = ref.read(appConfigRepositoryImplProvider);
+        await ref.read(appConfigRepositoryImplProvider.notifier).saveAppConfig(
+              appConfig.copyWith(
+                databasePath: file.path ?? '',
+              ),
+            );
+      }
     }
   }
 }
