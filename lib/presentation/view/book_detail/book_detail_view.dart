@@ -40,16 +40,44 @@ class BookDetailView extends HookConsumerWidget {
       ),
       body: Stack(
         children: [
-          SelectableRegion(
+          // TODO: 복사할 때 newline 삽입하도록 해야 함
+          SelectionArea(
             focusNode: focusNode,
             selectionControls: selectionController,
-            child: ListView.builder(
+            child: ListView.separated(
               shrinkWrap: true,
               itemCount: bookAnnotations.valueOrNull?.length ?? 0,
+              separatorBuilder: (context, index) =>
+                  const Divider(thickness: 0.3),
               itemBuilder: (context, index) {
                 final bookAnnotation = bookAnnotations.valueOrNull?[index];
-                return ListTile(
-                  title: Text('${bookAnnotation?.sentence}'),
+                return Row(
+                  children: [
+                    SelectionContainer.disabled(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 4, right: 4),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              '$index',
+                              textAlign: TextAlign.right,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text('${bookAnnotation?.sentence}'),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
