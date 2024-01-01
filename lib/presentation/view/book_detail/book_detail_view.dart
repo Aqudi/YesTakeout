@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 import 'package:yes24_highlight_exporter/presentation/viewmodel/book_detail_viewmodel.dart';
 
+import '../../widgets/backdrop_filter_loading.dart';
+
 class BookDetailView extends HookConsumerWidget {
   final BookInfo? bookInfo;
 
@@ -44,6 +46,8 @@ class BookDetailView extends HookConsumerWidget {
               );
             },
           ),
+          // Loading
+          if (bookAnnotations.isLoading) const BackdropFilterLoading(),
         ],
       ),
     );
