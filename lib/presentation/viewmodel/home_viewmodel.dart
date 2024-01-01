@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
@@ -34,20 +35,23 @@ class HomeViewModel extends _$HomeViewModel {
 
   Future<void> openDatabase() async {
     _logger.d('Opening database');
-    String? home;
-    if (Platform.isWindows) {
-      home = Platform.environment['UserProfile'];
+    if (kIsWeb) {
+    } else {
+      PlatformFile? file;
+      if (Platform.isWindows) {
+        final home = (Platform.environment['UserProfile'] ?? '') +
+            r'\AppData\Local\YES24eBook\databases\';
+        final result =
+            await FilePicker.platform.pickFiles(initialDirectory: home);
+        file = result?.files.first;
+      }
+
+      final appConfig = ref.read(appConfigRepositoryImplProvider);
+      await ref.read(appConfigRepositoryImplProvider.notifier).saveAppConfig(
+            appConfig.copyWith(
+              databasePath: file?.path ?? '',
+            ),
+          );
     }
-
-    final file = await FilePicker.platform.pickFiles(
-      initialDirectory: (home ?? '') + r'\AppData\Local\YES24eBook\databases\',
-    );
-
-    final appConfig = ref.read(appConfigRepositoryImplProvider);
-    await ref.read(appConfigRepositoryImplProvider.notifier).saveAppConfig(
-          appConfig.copyWith(
-            databasePath: file?.files.first.path ?? '',
-          ),
-        );
   }
 }
