@@ -18,7 +18,7 @@ class BookDetailViewModel extends _$BookDetailViewModel {
 
   Future<void> getBookAnnotations(BookInfo bookInfo) async {
     _logger.d(
-      'Getting annotations for bookId: ${bookInfo.ebookId}, ${bookInfo.uniqueId}',
+      'Getting annotations for book title: ${bookInfo.title}',
     );
     state = const AsyncValue.loading();
 
