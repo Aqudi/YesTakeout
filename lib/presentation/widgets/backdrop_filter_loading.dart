@@ -9,9 +9,11 @@ class BackdropFilterLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-      child: const CircularProgressIndicator(),
+    return Center(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: const CircularProgressIndicator(),
+      ),
     );
   }
 }
