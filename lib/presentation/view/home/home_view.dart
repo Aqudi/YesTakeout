@@ -136,21 +136,27 @@ class BookCard extends StatelessWidget {
                   fit: BoxFit.contain,
                 ),
               const SizedBox(height: 10),
-              Column(
-                children: [
-                  Text(
-                    '${bookInfo?.title}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    '${bookInfo?.authorName ?? bookInfo?.authorSort}',
-                  ),
-                  Text(
-                    '주석:\t${bookInfo?.bookAnnotationCounts ?? 0}',
-                    textAlign: TextAlign.right, // Right-align text
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      '${bookInfo?.title}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '${bookInfo?.authorName ?? bookInfo?.authorSort}',
+                    ),
+                    Text(
+                      '주석:\t${bookInfo?.bookAnnotationCounts ?? 0}',
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
