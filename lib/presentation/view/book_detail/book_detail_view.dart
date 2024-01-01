@@ -15,6 +15,9 @@ class BookDetailView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bookAnnotations = ref.watch(bookDetailViewModelProvider);
+    final focusNode = useFocusNode();
+    final selectionController =
+        useMemoized(() => MaterialTextSelectionControls());
 
     useEffect(
       () {
@@ -37,15 +40,19 @@ class BookDetailView extends HookConsumerWidget {
       ),
       body: Stack(
         children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: bookAnnotations.valueOrNull?.length ?? 0,
-            itemBuilder: (context, index) {
-              final bookAnnotation = bookAnnotations.valueOrNull?[index];
-              return ListTile(
-                title: Text('${bookAnnotation?.sentence}'),
-              );
-            },
+          SelectableRegion(
+            focusNode: focusNode,
+            selectionControls: selectionController,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: bookAnnotations.valueOrNull?.length ?? 0,
+              itemBuilder: (context, index) {
+                final bookAnnotation = bookAnnotations.valueOrNull?[index];
+                return ListTile(
+                  title: Text('${bookAnnotation?.sentence}'),
+                );
+              },
+            ),
           ),
           // Loading
           if (bookAnnotations.isLoading) const BackdropFilterLoading(),
