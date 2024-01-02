@@ -10,8 +10,8 @@ import 'package:yes24_highlight_exporter/presentation/router/app_router.dart';
 import 'package:yes24_highlight_exporter/presentation/viewmodel/home_viewmodel.dart';
 import '../../widgets/backdrop_filter_loading.dart';
 
-class HomeView extends HookConsumerWidget {
-  const HomeView({super.key});
+class BookListView extends HookConsumerWidget {
+  const BookListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
