@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -102,64 +100,117 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final borderRadius = BorderRadius.circular(8);
+    final isInActive = bookInfo?.isPdf ?? true;
+
+    return Stack(
+      children: [
+        Opacity(
+          opacity: isInActive ? 0.5 : 1,
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(borderRadius: borderRadius),
+            color: Colors.white,
+            surfaceTintColor: Colors.white,
+            child: InkWell(
+              onTap: isInActive
+                  ? null
+                  : () {
+                      // TODO: 에러 띄우기
+                      if (bookInfo == null) return;
+
+                      BookDetailRoute(
+                        $extra: bookInfo!,
+                      ).go(context);
+                    },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: borderRadius,
+                  color: Colors.transparent,
+                ),
+                padding: const EdgeInsets.all(30.0),
+                child: BookInfoCardContent(
+                  bookInfo: bookInfo,
+                ),
+              ),
+            ),
+          ),
+        ),
+        if (isInActive)
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: borderRadius,
+                color: Colors.black.withOpacity(0.5),
+              ),
+              child: const Center(
+                child: Text(
+                  'PDF 파일은 지원하지 않습니다.',
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class BookInfoCardContent extends StatelessWidget {
+  const BookInfoCardContent({
+    super.key,
+    required this.bookInfo,
+  });
+
+  final BookInfo? bookInfo;
+
+  @override
+  Widget build(BuildContext context) {
     final thumbnailUrl = bookInfo?.thumbnailUrl;
 
-    return GestureDetector(
-      onTap: () {
-        // TODO: 에러 띄우기
-        if (bookInfo == null) return;
-
-        BookDetailRoute(
-          $extra: bookInfo!,
-        ).go(context);
-      },
-      child: Card(
-        elevation: 5,
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        if (thumbnailUrl != null)
+          CachedNetworkImage(
+            progressIndicatorBuilder: (context, url, progress) => Center(
+              child: CircularProgressIndicator(
+                value: progress.progress,
+              ),
+            ),
+            imageUrl: thumbnailUrl,
+            fit: BoxFit.contain,
+          ),
+        const SizedBox(height: 10),
+        Expanded(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              if (thumbnailUrl != null)
-                CachedNetworkImage(
-                  progressIndicatorBuilder: (context, url, progress) => Center(
-                    child: CircularProgressIndicator(
-                      value: progress.progress,
-                    ),
-                  ),
-                  imageUrl: thumbnailUrl,
-                  fit: BoxFit.contain,
+            children: [
+              Text(
+                '${bookInfo?.title}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      '${bookInfo?.title}',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      '${bookInfo?.authorName ?? bookInfo?.authorSort}',
-                    ),
-                    Text(
-                      '주석:\t${bookInfo?.bookAnnotationCounts ?? 0}',
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
-                ),
+              ),
+              Text(
+                '${bookInfo?.authorName ?? bookInfo?.authorSort}',
+              ),
+              Text(
+                '주석:\t${bookInfo?.bookAnnotationCounts ?? 0}',
+                textAlign: TextAlign.right,
               ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
