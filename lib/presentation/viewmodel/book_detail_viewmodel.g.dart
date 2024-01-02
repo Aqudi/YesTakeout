@@ -7,7 +7,7 @@ part of 'book_detail_viewmodel.dart';
 // **************************************************************************
 
 String _$bookDetailViewModelHash() =>
-    r'61cd92441ea6778d86a1d9bb5075e1873610a4a7';
+    r'cc8b3d3880c82db02080acb5f1a5a6bbd703e8b8';
 
 /// See also [BookDetailViewModel].
 @ProviderFor(BookDetailViewModel)

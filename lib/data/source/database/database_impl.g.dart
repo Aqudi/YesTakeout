@@ -3450,7 +3450,7 @@ abstract class _$DatabaseImpl extends GeneratedDatabase {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$databaseHash() => r'97b14fdf9c9fdf20ff196259c3f0a45c3afd6ef6';
+String _$databaseHash() => r'ea6f8aa73552b1b8390bc0b518c3b945e22e0835';
 
 /// See also [database].
 @ProviderFor(database)
