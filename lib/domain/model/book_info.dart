@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'book_info.freezed.dart';
@@ -70,4 +71,8 @@ class BookInfo with _$BookInfo {
 
   factory BookInfo.fromJson(Map<String, dynamic> json) =>
       _$BookInfoFromJson(json);
+
+  const BookInfo._();
+
+  bool get isPdf => contentsType == 'PDF';
 }

@@ -864,7 +864,7 @@ class __$$BookInfoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BookInfoImpl implements _BookInfo {
+class _$BookInfoImpl extends _BookInfo {
   const _$BookInfoImpl(
       {this.authorName,
       this.authorSort,
@@ -925,7 +925,8 @@ class _$BookInfoImpl implements _BookInfo {
       this.fitmode,
       this.theme,
       this.managedId,
-      this.bookAnnotationCounts});
+      this.bookAnnotationCounts})
+      : super._();
 
   factory _$BookInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookInfoImplFromJson(json);
@@ -1246,7 +1247,7 @@ class _$BookInfoImpl implements _BookInfo {
   }
 }
 
-abstract class _BookInfo implements BookInfo {
+abstract class _BookInfo extends BookInfo {
   const factory _BookInfo(
       {final String? authorName,
       final String? authorSort,
@@ -1308,6 +1309,7 @@ abstract class _BookInfo implements BookInfo {
       final String? theme,
       final int? managedId,
       final int? bookAnnotationCounts}) = _$BookInfoImpl;
+  const _BookInfo._() : super._();
 
   factory _BookInfo.fromJson(Map<String, dynamic> json) =
       _$BookInfoImpl.fromJson;
