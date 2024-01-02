@@ -18,7 +18,7 @@ Database database(DatabaseRef ref) {
   final database = DatabaseImpl(
     dbName: appConfig.databasePath,
     inMemory: false,
-    logStatements: false,
+    logStatements: true,
   );
 
   ref.onDispose(() {
@@ -49,16 +49,20 @@ class DatabaseImpl extends _$DatabaseImpl implements Database {
   @override
   int get schemaVersion => 1;
 
-  Selectable<BookAnnotation> _getBookAnnotations() =>
-      bookAnnotationTable.select()
-        ..where((tbl) => tbl.annotationType.isIn(['2', '3']));
+  // Selectable<BookAnnotation> _getBookAnnotations() =>
+  //     bookAnnotationTable.select();
   Selectable<BookInfo> _getBookInfos() => bookInfoTable.all();
   Selectable<BookAnnotation> _searchAnnotations(String bookId) =>
-      bookAnnotationTable.select()..where((tbl) => tbl.ebookId.equals(bookId));
+      bookAnnotationTable.select()
+        ..where(
+          (tbl) =>
+              tbl.ebookId.equals(bookId) &
+              tbl.annotationType.isIn(['2', '3']), // 1번은 PDF 하이라이트여서 텍스트가 안 보임
+        );
 
-  @override
-  Future<List<BookAnnotation>> getBookAnnotations() =>
-      _getBookAnnotations().get();
+  // @override
+  // Future<List<BookAnnotation>> getBookAnnotations() =>
+  //     _getBookAnnotations().get();
 
   @override
   Future<List<BookInfo>> getBookInfos() => _getBookInfos().get();
@@ -67,9 +71,9 @@ class DatabaseImpl extends _$DatabaseImpl implements Database {
   Future<List<BookAnnotation>> searchAnnotations(String ebookId) =>
       _searchAnnotations(ebookId).get();
 
-  @override
-  Stream<List<BookAnnotation>> watchBookAnnotations() =>
-      _getBookAnnotations().watch();
+  // @override
+  // Stream<List<BookAnnotation>> watchBookAnnotations() =>
+  //     _getBookAnnotations().watch();
 
   @override
   Stream<List<BookInfo>> watchBookInfos() => _getBookInfos().watch();
@@ -88,6 +92,8 @@ class DatabaseImpl extends _$DatabaseImpl implements Database {
         ),
       ],
     )
+      ..where(bookAnnotationTable.annotationType
+          .isIn(['2', '3'])) // 1번은 PDF 하이라이트여서 텍스트가 안 보임
       ..addColumns([bookAnnotationCount])
       ..groupBy(
         [bookAnnotationTable.ebookId, bookAnnotationTable.annotationType],

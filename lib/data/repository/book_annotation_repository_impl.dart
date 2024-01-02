@@ -18,17 +18,15 @@ class BookAnnotationRepositoryImpl extends _$BookAnnotationRepositoryImpl
 
   @override
   Stream<List<BookAnnotation>> build() {
-    return _database
-        .watchBookAnnotations()
-        .map(BookAnnotationMapper.transformToModelList);
+    return Stream.value([]);
   }
 
-  @override
-  Future<List<BookAnnotation>> getAllAnnotations() {
-    return _database
-        .getBookAnnotations()
-        .then(BookAnnotationMapper.transformToModelList);
-  }
+  // @override
+  // Future<List<BookAnnotation>> getAllAnnotations() {
+  //   return _database
+  //       .getBookAnnotations()
+  //       .then(BookAnnotationMapper.transformToModelList);
+  // }
 
   @override
   Future<List<BookAnnotation>> searchAnnotations(BookInfo bookInfo) async {
