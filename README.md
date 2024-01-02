@@ -1,24 +1,53 @@
-# Yes24 메모 추출기
+# YesTakeout - Yes24 Ebook 하이라이트 내보내기
 
-Yes24에서 구매한 책을 읽으면서 하이라이트한 내용이나 메모 내보내기
-기능을 공식적으로 지원하지 않아 개발하게 된 프로그램입니다.
+## 개요
 
-Yes24 ebook 윈도우 프로그램에서 사용하는 데이터베이스의 내용을 파싱하고
-Markdown 포맷으로 내보내는 작업을 지원하여 Obsidian이나 Notion 등 자신이
-사용하고 있는 메모 앱에서 활용할 수 있도록 할 수 있습니다.
+YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 메모 내보내기 기능을 
+공식적으로 지원하지 않아 개발하게 된 프로그랩입니다. 기본적인 하이라이트나 메모 내보내기 기능 외에도
+독서노트 작성하실 때 사용하실 수 있는 기능들이 포함되어 있습니다.
 
-## Todo
-- [] 메모 열람
-- [] 하이라이트 열람
-- [] Markdown 포맷 내보내기
-- [] Markdown 템플릿 지원
-- [] Obsidian 플러그인으로 만들기
-- [] 문서 작업
+> [!CAUTION]
+> YesTakeout의 기본적인 원리는 Yes24 Ebook 윈도우 프로그램에서 사용하는 데이터베이스 내용을 읽고
+보여주는 방식입니다. 그렇기 때문에 Yes24 Ebook PC 버전을 설치하여야 하고 이 프로그램이 변경될 경우 YesTakeout이
+정상적으로 동작하지 않을 수 있습니다.
+
+## 기능
+- [ ] 하이라이트/메모 열람
+- [ ] 필사 (하이라이트를 보고 직접 타이핑)
+- [ ] Markdown 포맷 내보내기
+- [ ] 템플릿 지원
+- [ ] Obsidian 내보내기 지원
 
 ## 사용법
 
 - Todo
 
-## 참고 문서
-- https://github.com/rodydavis/clean_architecture_todo_app/tree/main
-- https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/
+## 개발
+
+### 사전 준비
+
+- Flutter SDK (.fvm/fvm_config.json에 명시된 버전)
+- Dart SDK (pubspec.yaml version 항목에 명시된 버전)
+
+### 프로젝트 구조
+
+주요 디렉토리 및 파일:
+
+- lib/: 프로젝트의 Dart 소스 파일이 포함되어 있습니다.
+- windows/: CMake 구성을 포함한 윈도우 전용 프로젝트 파일이 있습니다.
+- pubspec.yaml: 프로젝트의 의존성을 정의합니다.
+
+### 애플리케이션 실행하기
+
+```shell
+flutter run -d windows
+```
+
+## 기여하기
+
+이슈나 풀리퀘스트 모두 환영합니다.
+혹시나 필요한 기능이나 오류가 있다면 제보해주시면 좋겠습니다.
+
+## 라이선스
+
+프로젝트는 MIT 라이선스 하에 있습니다. 자세한 내용은 [LICENSE](./LICENSE) 파일을 참조하세요.
