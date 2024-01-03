@@ -19,6 +19,10 @@ class BookDetailView extends HookConsumerWidget {
     final selectionController =
         useMemoized(() => MaterialTextSelectionControls());
 
+    final showIndex = useState(true);
+    final showMemo = useState(true);
+    final showHighlightColor = useState(true);
+
     useEffect(
       () {
         final bookInfo = this.bookInfo;
@@ -36,7 +40,53 @@ class BookDetailView extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book Annotations'),
+        title: Text('${bookInfo?.title} - ${bookInfo?.authorName}'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text('인덱스 보기'),
+                    Switch(
+                      value: showIndex.value,
+                      onChanged: (value) {
+                        showIndex.value = value;
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 10),
+                Row(
+                  children: [
+                    const Text('메모 보기'),
+                    Switch(
+                      value: showMemo.value,
+                      onChanged: (value) {
+                        showMemo.value = value;
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 10),
+                Row(
+                  children: [
+                    const Text('하이라이트 색'),
+                    Switch(
+                      value: showHighlightColor.value,
+                      onChanged: (value) {
+                        showHighlightColor.value = value;
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -46,35 +96,63 @@ class BookDetailView extends HookConsumerWidget {
             selectionControls: selectionController,
             child: ListView.separated(
               shrinkWrap: true,
+              padding: const EdgeInsets.all(8),
               itemCount: bookAnnotations.valueOrNull?.length ?? 0,
               separatorBuilder: (context, index) =>
                   const Divider(thickness: 0.3),
               itemBuilder: (context, index) {
                 final bookAnnotation = bookAnnotations.valueOrNull?[index];
+
+                final colorHex =
+                    bookAnnotation?.highlightColor?.replaceFirst('#', '0xff');
+                Color? color;
+                if (showHighlightColor.value && colorHex != null) {
+                  color = Color(int.parse(colorHex)).withOpacity(0.3);
+                }
+
+                final sentence = bookAnnotation?.sentence;
+                final memo = bookAnnotation?.memo;
+
                 return Row(
                   children: [
-                    SelectionContainer.disabled(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 4, right: 4),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              '$index',
-                              textAlign: TextAlign.right,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Colors.grey,
+                    if (showIndex.value)
+                      SelectionContainer.disabled(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4, right: 4),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                '$index',
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     Expanded(
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: Text('${bookAnnotation?.sentence}'),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '$sentence\n',
+                              style: TextStyle(backgroundColor: color),
+                              textAlign: TextAlign.start,
+                            ),
+                            if (showMemo.value && (memo?.isNotEmpty ?? false))
+                              Text(
+                                '\n$memo\n',
+                                style: const TextStyle(color: Colors.black87),
+                                textAlign: TextAlign.start,
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

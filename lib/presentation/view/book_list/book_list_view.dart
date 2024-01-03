@@ -29,7 +29,7 @@ class BookListView extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book Annotations'),
+        title: const Text('YesTakeout!'),
       ),
       body: Stack(
         children: [
