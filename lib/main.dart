@@ -13,8 +13,9 @@ void main() async {
   // ensure widget bindings
   WidgetsFlutterBinding.ensureInitialized();
   await WindowManager.instance.ensureInitialized();
-  windowManager.waitUntilReadyToShow().then((_) async {
+  await windowManager.waitUntilReadyToShow().then((_) async {
     await windowManager.setTitle('Yes! Takeout');
+    await windowManager.setSize(const Size(1000, 800));
   });
 
   final sharedPreferences = await SharedPreferences.getInstance();
