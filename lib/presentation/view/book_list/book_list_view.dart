@@ -28,15 +28,24 @@ class BookListView extends HookConsumerWidget {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            ref.read(bookListViewModelProvider.notifier).getBookInfos(),
+        child: const Icon(Icons.refresh),
+      ),
       appBar: AppBar(
         title: const Text('YesTakeout!'),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
       ),
       body: Stack(
         children: [
           Column(
             children: [
-              SizedBox(
+              Container(
                 width: 1020,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -59,17 +68,16 @@ class BookListView extends HookConsumerWidget {
                   ],
                 ),
               ),
-              IconButton(
-                onPressed: () =>
-                    ref.read(bookListViewModelProvider.notifier).getBookInfos(),
-                icon: const Icon(Icons.refresh),
-              ),
+              const SizedBox(height: 5),
+              const Divider(),
+              const SizedBox(height: 5),
               Expanded(
                 child: GridView.builder(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(8.0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).size.width ~/ 300,
+                    crossAxisCount: (MediaQuery.of(context).size.width ~/ 300)
+                        .clamp(1, double.maxFinite.toInt()),
                     crossAxisSpacing: 8.0,
                     mainAxisSpacing: 8.0,
                     childAspectRatio: 63 / 100,
@@ -130,7 +138,8 @@ class BookCard extends StatelessWidget {
                   borderRadius: borderRadius,
                   color: Colors.transparent,
                 ),
-                padding: const EdgeInsets.all(30.0),
+                padding:
+                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                 child: BookInfoCardContent(
                   bookInfo: bookInfo,
                 ),
@@ -204,9 +213,13 @@ class BookInfoCardContent extends StatelessWidget {
               ),
               Text(
                 '${bookInfo?.authorName ?? bookInfo?.authorSort}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               Text(
-                '주석:\t${bookInfo?.bookAnnotationCounts ?? 0}',
+                '하이라이트:\t${bookInfo?.bookAnnotationCounts ?? 0}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.right,
               ),
             ],
