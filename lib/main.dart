@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:yes_takeout/data/source/shared_preferences/shared_preferences.dart';
 import 'package:yes_takeout/presentation/router/app_router.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
   // ensure widget bindings
@@ -31,7 +32,7 @@ class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final router = useMemoized(
-      () => GoRouter(routes: $appRoutes, initialLocation: '/intro'),
+      () => GoRouter(routes: $appRoutes),
     );
 
     return MaterialApp.router(

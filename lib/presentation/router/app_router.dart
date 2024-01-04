@@ -10,7 +10,17 @@ import '../view/book_list/book_list_view.dart';
 part 'app_router.g.dart';
 
 @TypedGoRoute<IntroViewRoute>(
-  path: '/intro',
+  path: '/',
+  routes: [
+    TypedGoRoute<BookListRoute>(
+      path: 'books',
+      routes: [
+        TypedGoRoute<BookDetailRoute>(
+          path: 'book',
+        ),
+      ],
+    ),
+  ],
 )
 @immutable
 class IntroViewRoute extends GoRouteData {
@@ -20,14 +30,6 @@ class IntroViewRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<BookListRoute>(
-  path: '/books',
-  routes: [
-    TypedGoRoute<BookDetailRoute>(
-      path: 'book',
-    ),
-  ],
-)
 @immutable
 class BookListRoute extends GoRouteData {
   @override

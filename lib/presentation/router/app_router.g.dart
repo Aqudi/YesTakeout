@@ -8,19 +8,30 @@ part of 'app_router.dart';
 
 List<RouteBase> get $appRoutes => [
       $introViewRoute,
-      $bookListRoute,
     ];
 
 RouteBase get $introViewRoute => GoRouteData.$route(
-      path: '/intro',
+      path: '/',
       factory: $IntroViewRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'books',
+          factory: $BookListRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'book',
+              factory: $BookDetailRouteExtension._fromState,
+            ),
+          ],
+        ),
+      ],
     );
 
 extension $IntroViewRouteExtension on IntroViewRoute {
   static IntroViewRoute _fromState(GoRouterState state) => IntroViewRoute();
 
   String get location => GoRouteData.$location(
-        '/intro',
+        '/',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -32,17 +43,6 @@ extension $IntroViewRouteExtension on IntroViewRoute {
 
   void replace(BuildContext context) => context.replace(location);
 }
-
-RouteBase get $bookListRoute => GoRouteData.$route(
-      path: '/books',
-      factory: $BookListRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: 'book',
-          factory: $BookDetailRouteExtension._fromState,
-        ),
-      ],
-    );
 
 extension $BookListRouteExtension on BookListRoute {
   static BookListRoute _fromState(GoRouterState state) => BookListRoute();

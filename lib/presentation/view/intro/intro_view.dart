@@ -35,7 +35,23 @@ class IntroView extends HookWidget {
                   color: Colors.black.withOpacity(0.5),
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 2),
+              TextButton(
+                onPressed: () {
+                  launchUrl(
+                    Uri.parse('https://open.kakao.com/o/sS7gUM1f'),
+                  );
+                },
+                child: Text(
+                  '(https://open.kakao.com/o/sS7gUM1f)',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   BookListRoute().go(context);
