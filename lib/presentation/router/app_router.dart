@@ -17,7 +17,7 @@ part 'app_router.g.dart';
   ],
 )
 @immutable
-class HomeScreenRoute extends GoRouteData {
+class BookListRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const BookListView();

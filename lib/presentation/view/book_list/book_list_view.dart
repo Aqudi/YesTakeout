@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yes24_highlight_exporter/data/repository/app_config_repository_impl.dart';
 import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 import 'package:yes24_highlight_exporter/presentation/router/app_router.dart';
-import 'package:yes24_highlight_exporter/presentation/viewmodel/home_viewmodel.dart';
+import 'package:yes24_highlight_exporter/presentation/viewmodel/book_list_viewmodel.dart';
 import '../../widgets/backdrop_filter_loading.dart';
 
 class BookListView extends HookConsumerWidget {
@@ -15,12 +15,12 @@ class BookListView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bookInfos = ref.watch(homeViewModelProvider);
+    final bookInfos = ref.watch(bookListViewModelProvider);
 
     useEffect(
       () {
         Future.microtask(
-          () => ref.read(homeViewModelProvider.notifier).getBookInfos(),
+          () => ref.read(bookListViewModelProvider.notifier).getBookInfos(),
         );
         return null;
       },
@@ -50,7 +50,9 @@ class BookListView extends HookConsumerWidget {
                     const SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {
-                        ref.read(homeViewModelProvider.notifier).openDatabase();
+                        ref
+                            .read(bookListViewModelProvider.notifier)
+                            .openDatabase();
                       },
                       child: const Text('Open database'),
                     ),
@@ -59,7 +61,7 @@ class BookListView extends HookConsumerWidget {
               ),
               IconButton(
                 onPressed: () =>
-                    ref.read(homeViewModelProvider.notifier).getBookInfos(),
+                    ref.read(bookListViewModelProvider.notifier).getBookInfos(),
                 icon: const Icon(Icons.refresh),
               ),
               Expanded(

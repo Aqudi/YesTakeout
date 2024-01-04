@@ -10,10 +10,10 @@ import 'package:yes24_highlight_exporter/data/repository/book_info_repository_im
 import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
 import 'package:yes24_highlight_exporter/utils/logger.dart';
 
-part 'home_viewmodel.g.dart';
+part 'book_list_viewmodel.g.dart';
 
 @riverpod
-class HomeViewModel extends _$HomeViewModel {
+class BookListViewModel extends _$BookListViewModel {
   Logger get _logger => ref.read(loggerProvider);
 
   @override
