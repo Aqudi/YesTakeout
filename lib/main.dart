@@ -12,6 +12,10 @@ import 'package:window_manager/window_manager.dart';
 void main() async {
   // ensure widget bindings
   WidgetsFlutterBinding.ensureInitialized();
+  await WindowManager.instance.ensureInitialized();
+  windowManager.waitUntilReadyToShow().then((_) async {
+    await windowManager.setTitle('Yes! Takeout');
+  });
 
   final sharedPreferences = await SharedPreferences.getInstance();
 
@@ -36,7 +40,7 @@ class MyApp extends HookWidget {
     );
 
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'Yes! Takeout',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0081FD)),
         useMaterial3: true,
