@@ -7,12 +7,35 @@ part of 'app_router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $homeScreenRoute,
+      $introViewRoute,
+      $bookListRoute,
     ];
 
-RouteBase get $homeScreenRoute => GoRouteData.$route(
-      path: '/',
-      factory: $HomeScreenRouteExtension._fromState,
+RouteBase get $introViewRoute => GoRouteData.$route(
+      path: '/intro',
+      factory: $IntroViewRouteExtension._fromState,
+    );
+
+extension $IntroViewRouteExtension on IntroViewRoute {
+  static IntroViewRoute _fromState(GoRouterState state) => IntroViewRoute();
+
+  String get location => GoRouteData.$location(
+        '/intro',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bookListRoute => GoRouteData.$route(
+      path: '/books',
+      factory: $BookListRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
           path: 'book',
@@ -21,11 +44,11 @@ RouteBase get $homeScreenRoute => GoRouteData.$route(
       ],
     );
 
-extension $HomeScreenRouteExtension on HomeScreenRoute {
-  static HomeScreenRoute _fromState(GoRouterState state) => HomeScreenRoute();
+extension $BookListRouteExtension on BookListRoute {
+  static BookListRoute _fromState(GoRouterState state) => BookListRoute();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/books',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -44,7 +67,7 @@ extension $BookDetailRouteExtension on BookDetailRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/book',
+        '/books/book',
       );
 
   void go(BuildContext context) => context.go(location, extra: $extra);

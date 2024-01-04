@@ -30,12 +30,14 @@ class MyApp extends HookWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final router = useMemoized(() => GoRouter(routes: $appRoutes));
+    final router = useMemoized(
+      () => GoRouter(routes: $appRoutes, initialLocation: '/intro'),
+    );
 
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0081FD)),
         useMaterial3: true,
       ),
       routerConfig: router,
