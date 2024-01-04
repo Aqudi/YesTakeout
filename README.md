@@ -5,6 +5,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/Aqudi/YesTakeout/total?style=flat-square)
 
 
+
 ## 개요
 
 YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 메모 내보내기 기능을 
@@ -24,6 +25,8 @@ YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 
 - [ ] Obsidian 내보내기 지원
 
 ## 사용법
+
+잘 안되시면 [오픈채팅방](https://open.kakao.com/o/sS7gUM1f)으로 문의주시면 감사하겠습니다.
 
 ### Yes24 Ebook PC 뷰어
 1. Yes24 Ebook PC 뷰어 설치 [링크](https://www.yes24.com/notice/eBookGuide/guide_pc.aspx)
