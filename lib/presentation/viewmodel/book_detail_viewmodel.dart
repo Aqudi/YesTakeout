@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:yes24_highlight_exporter/data/repository/book_annotation_repository_impl.dart';
-import 'package:yes24_highlight_exporter/domain/model/book_annotation.dart';
-import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
-import 'package:yes24_highlight_exporter/utils/logger.dart';
+import 'package:yes_takeout/data/repository/book_annotation_repository_impl.dart';
+import 'package:yes_takeout/domain/model/book_annotation.dart';
+import 'package:yes_takeout/domain/model/book_info.dart';
+import 'package:yes_takeout/utils/logger.dart';
 
 part 'book_detail_viewmodel.g.dart';
 

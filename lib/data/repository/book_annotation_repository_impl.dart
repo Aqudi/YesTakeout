@@ -1,13 +1,12 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:yes24_highlight_exporter/data/mapper/book_annotation_mapper.dart';
-import 'package:yes24_highlight_exporter/data/source/database/database.dart';
-import 'package:yes24_highlight_exporter/domain/model/book_annotation.dart';
-import 'package:yes24_highlight_exporter/domain/model/book_info.dart';
-import 'package:yes24_highlight_exporter/domain/repository/book_annotation_repository.dart';
+import 'package:yes_takeout/data/mapper/book_annotation_mapper.dart';
+import 'package:yes_takeout/data/source/database/database.dart';
+import 'package:yes_takeout/domain/model/book_annotation.dart';
+import 'package:yes_takeout/domain/model/book_info.dart';
+import 'package:yes_takeout/domain/repository/book_annotation_repository.dart';
 
-import 'package:yes24_highlight_exporter/data/source/database/database_impl.dart'
-    as db;
+import 'package:yes_takeout/data/source/database/database_impl.dart' as db;
 
 part 'book_annotation_repository_impl.g.dart';
 

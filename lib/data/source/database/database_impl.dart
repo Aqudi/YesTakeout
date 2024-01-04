@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:yes24_highlight_exporter/data/repository/app_config_repository_impl.dart';
-import 'package:yes24_highlight_exporter/utils/logger.dart';
+import 'package:yes_takeout/data/repository/app_config_repository_impl.dart';
+import 'package:yes_takeout/utils/logger.dart';
 import './schema/book_annotation_table.dart';
 import './schema/book_info_table.dart';
 import 'connection/connection.dart' as impl;

@@ -5,18 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "yes24_highlight_exporter",
+      "name": "yes_takeout",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "yes24_highlight_exporter (profile mode)",
+      "name": "yes_takeout (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "yes24_highlight_exporter (release mode)",
+      "name": "yes_takeout (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

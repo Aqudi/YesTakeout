@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:yes24_highlight_exporter/data/source/shared_preferences/shared_preferences.dart';
-import 'package:yes24_highlight_exporter/domain/model/app_config.dart';
-import 'package:yes24_highlight_exporter/domain/repository/app_config_repository.dart';
+import 'package:yes_takeout/data/source/shared_preferences/shared_preferences.dart';
+import 'package:yes_takeout/domain/model/app_config.dart';
+import 'package:yes_takeout/domain/repository/app_config_repository.dart';
 
 part 'app_config_repository_impl.g.dart';
 

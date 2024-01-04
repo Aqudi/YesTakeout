@@ -1,4 +1,4 @@
-import 'package:yes24_highlight_exporter/data/source/database/database_impl.dart';
+import 'package:yes_takeout/data/source/database/database_impl.dart';
 
 abstract class Database {
   Future<List<BookAnnotation>> searchAnnotations(String query);

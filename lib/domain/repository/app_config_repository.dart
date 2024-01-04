@@ -1,4 +1,4 @@
-import 'package:yes24_highlight_exporter/domain/model/app_config.dart';
+import 'package:yes_takeout/domain/model/app_config.dart';
 
 abstract class AppConfigRepository {
   AppConfig getAppConfig();

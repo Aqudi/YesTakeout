@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:yes24_highlight_exporter/data/source/shared_preferences/shared_preferences.dart';
-import 'package:yes24_highlight_exporter/presentation/router/app_router.dart';
+import 'package:yes_takeout/data/source/shared_preferences/shared_preferences.dart';
+import 'package:yes_takeout/presentation/router/app_router.dart';
 
 void main() async {
   // ensure widget bindings
