@@ -1,5 +1,9 @@
 # YesTakeout - Yes24 Ebook 하이라이트 내보내기
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FAqudi%2FYesTakeout&count_bg=%233BB4E8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true)](https://hits.seeyoufarm.com)
+
+![GitHub release (latest by SemVer including pre-releases)](https://img.shields.io/github/downloads-pre/Aqudi/YesTakeout/latest/total?style=flat-square)
+
 ## 개요
 
 YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 메모 내보내기 기능을 
