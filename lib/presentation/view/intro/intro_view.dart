@@ -11,92 +11,95 @@ class IntroView extends HookWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SizedBox(
-        width: double.maxFinite,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: CachedNetworkImage(
-                imageUrl:
-                    'https://cdn.hashnode.com/res/hashnode/image/upload/v1704212627870/zF6t9n5HJ.png?w=800&fit=crop&crop=entropy&auto=compress,format&format=webp',
-                fit: BoxFit.contain,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: CachedNetworkImage(
+                  imageUrl:
+                      'https://cdn.hashnode.com/res/hashnode/image/upload/v1704212627870/zF6t9n5HJ.png?w=800&fit=crop&crop=entropy&auto=compress,format&format=webp',
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            Text(
-              'by 허태정',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.black.withOpacity(0.5),
+              Text(
+                'by 허태정',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black.withOpacity(0.5),
+                ),
               ),
-            ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () {
-                BookListRoute().go(context);
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Takeout 하러 가기',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              const SizedBox(height: 50),
+              ElevatedButton(
+                onPressed: () {
+                  BookListRoute().go(context);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Takeout 하러 가기',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                launchUrl(
-                  Uri.parse('https://github.com/Aqudi/YesTakeout/tree/main'),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '😁사용 방법 보러가기',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: () {
-                launchUrl(
-                  Uri.parse('https://github.com/Aqudi/YesTakeout/releases'),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '⬇️최신버전 확인하기',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: () {
-                launchUrl(
-                  Uri.parse(
-                    'https://cloud-whale.hashnode.dev/series/yes-takeout',
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrl(
+                    Uri.parse('https://github.com/Aqudi/YesTakeout/tree/main'),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '😁사용 방법 보러가기',
+                    style: TextStyle(fontSize: 16),
                   ),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '📝개발 기록 보러가기',
-                  style: TextStyle(fontSize: 16),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrl(
+                    Uri.parse('https://github.com/Aqudi/YesTakeout/releases'),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '⬇️최신버전 확인하기',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrl(
+                    Uri.parse(
+                      'https://cloud-whale.hashnode.dev/series/yes-takeout',
+                    ),
+                  );
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '📝개발 기록 보러가기',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
