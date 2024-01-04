@@ -21,11 +21,18 @@ class IntroView extends HookWidget {
               width: MediaQuery.of(context).size.width * 0.5,
               child: CachedNetworkImage(
                 imageUrl:
-                    'https://cdn.hashnode.com/res/hashnode/image/upload/v1704212593472/ce324cbe-8938-46ba-84af-7e1eb744badb.png?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp',
+                    'https://cdn.hashnode.com/res/hashnode/image/upload/v1704212627870/zF6t9n5HJ.png?w=800&fit=crop&crop=entropy&auto=compress,format&format=webp',
                 fit: BoxFit.contain,
               ),
             ),
-            //
+            Text(
+              'by 허태정',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black.withOpacity(0.5),
+              ),
+            ),
             const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
