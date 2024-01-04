@@ -2,7 +2,8 @@
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FAqudi%2FYesTakeout&count_bg=%233BB4E8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true)](https://hits.seeyoufarm.com)
 
-![GitHub release (latest by SemVer including pre-releases)](https://img.shields.io/github/downloads-pre/Aqudi/YesTakeout/latest/total?style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/Aqudi/YesTakeout/total?style=flat-square)
+
 
 ## 개요
 
@@ -16,7 +17,7 @@ YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 
 정상적으로 동작하지 않을 수 있습니다.
 
 ## 기능
-- [ ] 하이라이트/메모 열람
+- [x] 하이라이트/메모 열람
 - [ ] 필사 (하이라이트를 보고 직접 타이핑)
 - [ ] Markdown 포맷 내보내기
 - [ ] 템플릿 지원
@@ -24,7 +25,16 @@ YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 
 
 ## 사용법
 
-- Todo
+### Yes24 Ebook PC 뷰어
+1. Yes24 Ebook PC 뷰어 설치 [링크](https://www.yes24.com/notice/eBookGuide/guide_pc.aspx)
+2. Yes24 Ebook PC 뷰어 로그인
+3. Yes24 Ebook PC 뷰어에서 책 다운로드 및 책 열기
+
+### YesTakeout
+1. YesTakeout 실행
+2. YesTakeout `Takeout 하러 가기` 클릭
+3. YesTakeout `Open database` 클릭
+4. `crema_v2.0.db` 선택
 
 ## 개발
 
