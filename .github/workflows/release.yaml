@@ -2,22 +2,24 @@ name: Release
 
 on:
   pull_request:
-    branches: -main
+    branches: [main]
     types: [closed]
 
 jobs:
-  build:
+  create-release:
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
     steps:
       - uses: actions/checkout@v2
       - name: Get branch names
         id: branch-name
         uses: tj-actions/branch-names@v4.9
+      - name: Extract version from branch name
+        run: echo "TAG=$(echo '${{ steps.branch-name.outputs.current_branch }}' | egrep -o 'v[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" >> $GITHUB_ENV
 
-      - name: 버전 정보 추출(from Branch Name)
-        run: echo "TAG=$(echo '${{ steps.branch-name.outputs.current_branch }}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" >> $GITHUB_ENV
-
-      - name: Release & Tag 생성
+      - name: Create Release
+        id: create-release
         if: github.event.pull_request.merged == true
         uses: actions/create-release@v1
         env:
@@ -25,3 +27,72 @@ jobs:
         with:
           tag_name: ${{ env.TAG }}
           release_name: ${{ env.TAG }}
+          draft: true
+          prerelease: false
+
+  create-build:
+    name: Create ${{ matrix.target }} build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        target: [macOS, Windows, Linux, Android]
+        include:
+          - os: macos-latest
+            target: macOS
+            build_target: macos
+            build_path: build/macos/Build/Products/Release
+            asset_extension: .zip
+            asset_content_type: application/zip
+          - os: windows-latest
+            target: Windows
+            build_target: windows
+            build_path: build\windows\runner\Release
+            asset_extension: .zip
+            asset_content_type: application/zip
+      fail-fast: false
+    needs: create-release
+    steps:
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2.12.0
+        with:
+          channel: stable
+      - uses: actions/checkout@v2
+      - run: flutter doctor -v
+      - run: flutter create .
+      - run: flutter pub get
+
+      # Build the application.
+      - run: flutter build -v ${{ matrix.build_target }} --release
+
+      # Package the build.
+      - name: Copy VC redistributables to release directory for Windows
+        if: matrix.target == 'Windows'
+        run: |
+          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\msvcp140.dll') .
+          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140.dll') .
+          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140_1.dll') .
+      - name: Compress build for macOS
+        if: matrix.target == 'macOS'
+        run: ditto -c -k --sequesterRsrc --keepParent Flutter\ Gallery.app $GITHUB_WORKSPACE/yes_takeout_${{ matrix.target }}.zip
+        working-directory: ${{ matrix.build_path }}
+      - name: Compress build for Windows
+        if: matrix.target == 'Windows'
+        run: compress-archive -Path * -DestinationPath ${env:GITHUB_WORKSPACE}\yes_takeout_${{ matrix.target }}.zip
+        working-directory: ${{ matrix.build_path }}
+      - name: Archive APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: android-build
+          path: ./ExampleApp-SNAPSHOT.apk
+
+      # Upload the build.
+      - name: upload-release-asset to release
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: ./yes_takeout_${{ matrix.target }}${{ matrix.asset_extension }}
+          asset_name: yes_takeout_${{ matrix.target }}${{ matrix.asset_extension }}
+          asset_content_type: ${{ matrix.asset_content_type }}
