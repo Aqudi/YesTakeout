@@ -12,7 +12,7 @@ part 'book_info_repository_impl.g.dart';
 @riverpod
 class BookInfoRepositoryImpl extends _$BookInfoRepositoryImpl
     implements BookInfoRepository {
-  late final Database _database = ref.read(db.databaseProvider);
+  late final Database _database = ref.watch(db.databaseProvider);
 
   @override
   Stream<List<BookInfo>> build() {

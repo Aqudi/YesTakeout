@@ -6,7 +6,7 @@ part of 'book_list_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bookListViewModelHash() => r'fd5c85948452bfbc3229da954b5e8ff9d44031fb';
+String _$bookListViewModelHash() => r'39442fbeb815eeb3ab216575dbb148d7d12732cd';
 
 /// See also [BookListViewModel].
 @ProviderFor(BookListViewModel)

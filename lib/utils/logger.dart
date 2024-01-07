@@ -12,6 +12,7 @@ part 'logger.g.dart';
 Logger logger(LoggerRef ref) {
   return Logger(
     output: kReleaseMode ? FileOutput(file: File('log.txt')) : null,
+    level: kReleaseMode ? Level.debug : Level.trace,
     printer: kReleaseMode
         ? LogfmtPrinter()
         : PrettyPrinter(

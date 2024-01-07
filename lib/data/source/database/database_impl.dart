@@ -22,6 +22,7 @@ Database database(DatabaseRef ref) {
   );
 
   ref.onDispose(() {
+    ref.read(loggerProvider).d('Closing database ${appConfig.databasePath}');
     database.close();
   });
 

@@ -13,7 +13,7 @@ part 'book_annotation_repository_impl.g.dart';
 @riverpod
 class BookAnnotationRepositoryImpl extends _$BookAnnotationRepositoryImpl
     implements BookAnnotationRepository {
-  late final Database _database = ref.read(db.databaseProvider);
+  late final Database _database = ref.watch(db.databaseProvider);
 
   @override
   Stream<List<BookAnnotation>> build() {

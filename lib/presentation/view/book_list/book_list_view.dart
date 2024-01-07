@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:yes_takeout/data/repository/app_config_repository_impl.dart';
@@ -16,6 +17,7 @@ class BookListView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bookInfos = ref.watch(bookListViewModelProvider);
+    final isMounted = useIsMounted();
 
     useEffect(
       () {
@@ -30,8 +32,13 @@ class BookListView extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            ref.read(bookListViewModelProvider.notifier).getBookInfos(),
+        onPressed: () async {
+          await ref.read(bookListViewModelProvider.notifier).getBookInfos();
+          final mounted = isMounted();
+          if (mounted) {
+            GoRouter.of(context).refresh();
+          }
+        },
         child: const Icon(Icons.refresh),
       ),
       appBar: AppBar(
@@ -58,10 +65,14 @@ class BookListView extends HookConsumerWidget {
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {
-                        ref
+                      onPressed: () async {
+                        await ref
                             .read(bookListViewModelProvider.notifier)
                             .openDatabase();
+                        final mounted = isMounted();
+                        if (mounted) {
+                          GoRouter.of(context).refresh();
+                        }
                       },
                       child: const Text('Open database'),
                     ),

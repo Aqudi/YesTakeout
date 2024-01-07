@@ -22,38 +22,48 @@ class BookListViewModel extends _$BookListViewModel {
   }
 
   Future<void> getBookInfos() async {
+    _logger.i('Get BookInfos');
     state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() async {
       final bookInfos = await ref
           .watch(bookInfoRepositoryImplProvider.notifier)
           .getAllBookInfos();
+      _logger.d('BookInfos: ${bookInfos.map((e) => e.title)}');
       return bookInfos;
     });
   }
 
   Future<void> openDatabase() async {
-    _logger.d('Opening database');
-    if (kIsWeb) {
-    } else {
-      PlatformFile? file;
-      if (Platform.isWindows) {
-        final home = (Platform.environment['UserProfile'] ?? '') +
-            r'\AppData\Local\YES24eBook\databases\';
-        final result =
-            await FilePicker.platform.pickFiles(initialDirectory: home);
-        file = result?.files.first;
-      }
+    _logger.i('Opening database');
+    state = const AsyncValue.loading();
+    try {
+      if (kIsWeb) {
+      } else {
+        PlatformFile? file;
+        if (Platform.isWindows) {
+          final home = (Platform.environment['UserProfile'] ?? '') +
+              r'\AppData\Local\YES24eBook\databases\';
+          final result =
+              await FilePicker.platform.pickFiles(initialDirectory: home);
+          file = result?.files.first;
+        }
 
-      _logger.d('Selected file path: ${file?.path}');
-      if (file != null) {
-        final appConfig = ref.read(appConfigRepositoryImplProvider);
-        await ref.read(appConfigRepositoryImplProvider.notifier).saveAppConfig(
-              appConfig.copyWith(
-                databasePath: file.path ?? '',
-              ),
-            );
+        _logger.d('Selected file path: ${file?.path}');
+        if (file != null) {
+          final appConfig = ref.watch(appConfigRepositoryImplProvider);
+          await ref
+              .read(appConfigRepositoryImplProvider.notifier)
+              .saveAppConfig(
+                appConfig.copyWith(
+                  databasePath: file.path ?? '',
+                ),
+              );
+        }
       }
+    } catch (e, st) {
+      _logger.e("데이터베이스 열기에 실패했습니다.", error: e, stackTrace: st);
+      state = const AsyncValue.data([]);
     }
   }
 }
