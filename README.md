@@ -28,6 +28,8 @@ YesTakeout은 Yes24 Ebook에서 공식적으로 하이라이트한 구절이나 
 
 잘 안되시면 [오픈채팅방](https://open.kakao.com/o/sS7gUM1f)으로 문의주시면 감사하겠습니다.
 
+블로그 글로 사진이랑 같이 사용 방법을 정리해놨습니다. [링크](https://cloud-whale.hashnode.dev/yestakeout-v1-introduction)
+
 ### Yes24 Ebook PC 뷰어
 1. Yes24 Ebook PC 뷰어 설치 [링크](https://www.yes24.com/notice/eBookGuide/guide_pc.aspx)
 2. Yes24 Ebook PC 뷰어 로그인
