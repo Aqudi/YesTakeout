@@ -18,7 +18,11 @@ class BookListViewModel extends _$BookListViewModel {
 
   @override
   Future<List<BookInfo>> build() async {
-    return [];
+    return _gethBookInfos();
+  }
+
+  Future<List<BookInfo>> _gethBookInfos() async {
+    return ref.read(bookInfoRepositoryImplProvider.notifier).getAllBookInfos();
   }
 
   Future<void> getBookInfos() async {
@@ -26,11 +30,7 @@ class BookListViewModel extends _$BookListViewModel {
     state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() async {
-      final bookInfos = await ref
-          .watch(bookInfoRepositoryImplProvider.notifier)
-          .getAllBookInfos();
-      _logger.d('BookInfos: ${bookInfos.map((e) => e.title)}');
-      return bookInfos;
+      return _gethBookInfos();
     });
   }
 
@@ -62,7 +62,7 @@ class BookListViewModel extends _$BookListViewModel {
         }
       }
     } catch (e, st) {
-      _logger.e("데이터베이스 열기에 실패했습니다.", error: e, stackTrace: st);
+      _logger.e('데이터베이스 열기에 실패했습니다.', error: e, stackTrace: st);
       state = const AsyncValue.data([]);
     }
   }
