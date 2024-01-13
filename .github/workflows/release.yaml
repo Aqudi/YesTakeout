@@ -32,14 +32,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        target: [macOS, Windows, Linux, Android]
+        target: [Windows]
         include:
-          - os: macos-latest
-            target: macOS
-            build_target: macos
-            build_path: build/macos/Build/Products/Release
-            asset_extension: .zip
-            asset_content_type: application/zip
+          # - os: macos-latest
+          #   target: macOS
+          #   build_target: macos
+          #   build_path: build/macos/Build/Products/Release
+          #   asset_extension: .zip
+          #   asset_content_type: application/zip
           - os: windows-latest
             target: Windows
             build_target: windows
